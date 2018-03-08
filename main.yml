@@ -2,12 +2,14 @@
 - name: close memcached external ports
   hosts: tower
   gather_facts: false
+  vars:
+    - memcached_port: 11211
 
   tasks:
 
   - name: close memcached UDP and TCP re security concerns
     iptables:
-      destination_port: 11211
+      destination_port: "{{ memcached_port }}"
       jump: Drop
       protocol: “{{ item }}”
     with_items:
