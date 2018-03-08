@@ -1,0 +1,15 @@
+---
+- name: close memcached external ports
+  hosts: tower
+  gather_facts: false
+
+  tasks:
+
+  - name: close memcached UDP and TCP re security concerns
+    iptables:
+      destination_port: 11211
+      jump: Drop
+      protocol: “{{ item }}”
+    with_items:
+      - tcp
+      - udp
