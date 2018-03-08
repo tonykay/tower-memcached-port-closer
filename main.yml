@@ -9,6 +9,7 @@
 
   - name: close memcached UDP and TCP re security concerns
     iptables:
+      chain: INPUT
       destination_port: "{{ memcached_port }}"
       jump: Drop
       protocol: “{{ item }}”
